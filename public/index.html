@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envía archivos fácilmente</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Enviar archivos</h1>
+    <h2 id="tuid"></h2>
+    <input type="text" id="id" placeholder="Escribe la ID a enviar">
+   
+    <input type="file" name="enviarArchivo" id="enviarArchivo" limi>
+
+    <button onclick="mandarArchivo()">Enviar</button>
+    <br><div id="recibido_Archivo"></div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+  <script>
+    const input = document.getElementById('enviarArchivo')
+
+input.addEventListener('change', (event) => {
+  const target = event.target
+  	if (target.files && target.files[0]) {
+
+      const maxAllowedSize = 21 * 1024 * 1024;
+      if (target.files[0].size > maxAllowedSize) {
+      	
+       	target.value = ''
+      }
+  }
+})
+
+
+    const socket = io({
+      transports: ['websocket'],
+      upgrade: false,
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: Infinity,
+      autoConnect: true,
+      maxHttpBufferSize: 1e8, 
+    });
+
+    const id = document.getElementById("tuid");
+
+    socket.on("connect", () => {
+    id.innerText = socket.id;
+    socket.on(socket.id, (mensaje) => {
+      console.log(mensaje);
+
+      const downloadButton = document.createElement("button");
+      downloadButton.innerText = "Descargar Archivo";
+      downloadButton.addEventListener("click", () => {
+        const linkSource = mensaje.archivo;
+        const downloadLink = document.createElement("a");
+        downloadLink.href = linkSource;
+        downloadLink.download = mensaje.nombre;
+        downloadLink.click();
+      });
+
+      const recibidoArchivoDiv = document.getElementById("recibido_Archivo");
+      recibidoArchivoDiv.innerHTML = "";
+      recibidoArchivoDiv.appendChild(downloadButton);
+    });
+  });
+
+    function mandarArchivo() {
+      const ID = document.getElementById("id").value;
+      const archivoInput = document.getElementById("enviarArchivo");
+
+      if (archivoInput.files.length > 0) {
+        const archivo = archivoInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+          socket.emit("archivo", {
+            "id": ID,
+            "n": archivoInput.files[0].name,
+            "a": reader.result
+          });
+        };
+
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+        };
+
+        reader.readAsDataURL(archivo);
+      }
+    }
+  </script>
+</body>
+</html>
