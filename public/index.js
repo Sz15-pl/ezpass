@@ -50,4 +50,26 @@ const input = document.getElementById('enviarArchivo')
         recibidoArchivoDiv.appendChild(downloadButton);
       });
     });
+    function mandarArchivo() {
+      const ID = document.getElementById("id").value;
+      const archivoInput = document.getElementById("enviarArchivo");
 
+      if (archivoInput.files.length > 0) {
+        const archivo = archivoInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+          socket.emit("archivo", {
+            "id": ID,
+            "n": archivoInput.files[0].name,
+            "a": reader.result
+          });
+        };
+
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+        };
+
+        reader.readAsDataURL(archivo);
+      }
+    }
