@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Envía archivos fácilmente</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"></script>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -20,16 +21,21 @@
 </head>
 <body>
   <main>
-    <h1>Enviar archivos</h1>
+    <h1>Envia tus archivos.</h1>
+    <h5>Tamaño maximo: 20 Mb.</h5>
     <h2 id="tuid"></h2>
+    <br>
     <input type="text" id="id" placeholder="Escribe la ID a enviar">
    
     <input type="file" name="enviarArchivo" id="enviarArchivo" limi>
 
     <button onclick="mandarArchivo()">Enviar</button>
     <br><div id="recibido_Archivo"></div>
+    
   </main>
-
+  
+  <div id="qrcode"></div>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
   <script>
     const input = document.getElementById('enviarArchivo')
@@ -46,7 +52,11 @@ input.addEventListener('change', (event) => {
   }
 })
 
-
+try {
+  document.getElementById("id").value = location.search.split("?id=").pop(0) 
+} catch (error) {
+  console.log("ignora este error.")
+}
     const socket = io({
       transports: ['websocket'],
       upgrade: false,
@@ -62,6 +72,15 @@ input.addEventListener('change', (event) => {
 
     socket.on("connect", () => {
     id.innerText = socket.id;
+    var qrcode = new QRCode("qrcode", {
+    text: "http://vps-44df9322.vps.ovh.net/?id?=" + socket.id,
+    width: 128,
+    height: 128,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+});
+  
     socket.on(socket.id, (mensaje) => {
       console.log(mensaje);
 
