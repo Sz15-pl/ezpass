@@ -8,7 +8,8 @@ Aplicacion Web desarrollada en Node.Js con la libreria Socket.io para la transmi
 
 ## Uso
 
-Se trata de un proyecto simple, en el que al acceder a vps-44df9322.vps.ovh.net podrás transferir archivos de hasta 21 Mb a otras personas fácilmente
+Clona el proyecto, instala las dependecias necesarias y luego inicia el servidor. 
+Véase el video para comprobar funcionamiento de la aplicación.
 
 ## Licencia
 This project is under MIT License.
