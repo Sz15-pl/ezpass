@@ -1,5 +1,5 @@
 var qrcode = new QRCode("qrcode", {
-    text: "http://vps-44df9322.vps.ovh.net/?id?=" + socket.id,
+    text: window.location.hostname + "/?id?=" + ID,
     width: 128,
     height: 128,
     colorDark : "#000000",
