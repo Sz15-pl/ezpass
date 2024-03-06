@@ -1,5 +1,8 @@
 try {
-    document.getElementById("id").value = location.search.split("?id=").pop(0) 
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("id").value = location.search.split("?id=").pop();
+});
+
   } catch (error) {
     console.log("ignora este error.")
   }
