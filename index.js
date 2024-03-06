@@ -12,7 +12,7 @@ const io = socketIO(server, {
 
 
 const limiter = rateLimit({
-	windowMs: 0.1 * 60 * 1000, // 15 minutes
+	windowMs: 0.1 * 60 * 1000, 
 	limit: 20,
 	standardHeaders: 'draft-7', 
 	legacyHeaders: false, 
