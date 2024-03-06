@@ -10,6 +10,7 @@ Aplicacion Web desarrollada en Node.Js con la libreria Socket.io para la transmi
 
 Clona el proyecto, instala las dependecias necesarias y luego inicia el servidor. 
 Véase el video para comprobar funcionamiento de la aplicación.
+![](https://github.com/s-pl/ezpass/blob/main/g.gif)
 
 ## Licencia
 This project is under MIT License.
