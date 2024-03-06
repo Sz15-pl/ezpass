@@ -1,4 +1,4 @@
-
+let ID = Math.floor(Math.random()*90000) + 10000;
 const input = document.getElementById('enviarArchivo')
 
     input.addEventListener('change', (event) => {
@@ -27,12 +27,12 @@ const input = document.getElementById('enviarArchivo')
     const id = document.getElementById("tuid");
    
     socket.on("connect", () => {
-      id.innerText = socket.id;
+      id.innerText = ID;
 
       qrcode.clear();
-      qrcode.makeCode("http://vps-44df9322.vps.ovh.net/?id?=" + socket.id);
+      qrcode.makeCode("http://vps-44df9322.vps.ovh.net/?id?=" + ID);
 
-      socket.on(socket.id, (mensaje) => {
+      socket.on(ID, (mensaje) => {
         console.log(mensaje);
 
         const downloadButton = document.createElement("button");
@@ -50,8 +50,9 @@ const input = document.getElementById('enviarArchivo')
         recibidoArchivoDiv.appendChild(downloadButton);
       });
     });
+
     function mandarArchivo() {
-      const ID = document.getElementById("id").value;
+      const ID_ = document.getElementById("id").value;
       const archivoInput = document.getElementById("enviarArchivo");
 
       if (archivoInput.files.length > 0) {
@@ -60,7 +61,7 @@ const input = document.getElementById('enviarArchivo')
 
         reader.onload = function () {
           socket.emit("archivo", {
-            "id": ID,
+            "id": ID_,
             "n": archivoInput.files[0].name,
             "a": reader.result
           });
