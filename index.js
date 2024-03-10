@@ -1,50 +1,61 @@
 const express = require('express');
-const app = express()
-const db = require('./scripts/db')
-const f = require("./scripts/fecha")
-const dotenv = require('dotenv').config()
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const actualizarUsuarioRoute = require('./routes/actualizarUsuarios');
-const eliminarUsuariosRoute = require('./routes/eliminarUsuarios');
-const añadirUsuarioRoute = require('./routes/añadirUsuario');
-const consultarUsuariosRoute = require('./routes/consultarUsuarios');
-const consultaGeneralRoute = require('./routes/consultaGeneral');
-
-app.use(express.static('public'));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(cors());
-
-app.use('/usuarios', añadirUsuarioRoute);
-app.use('/usuarios', eliminarUsuariosRoute );
-app.use('/usuarios', actualizarUsuarioRoute);
-app.use('/usuarios', consultarUsuariosRoute);
-app.use('/usuarios', consultaGeneralRoute);
+const http = require('http');
+const socketIO = require('socket.io');
+const rateLimit = require('express-rate-limit')
+const MAX_FILE_SIZE =  30 * 1024 * 1024; 
+const app = express();
+const server = http.createServer(app);
+var sqlite3 = require('sqlite3').verbose();
+const io = socketIO(server, {
+  maxHttpBufferSize: 1e8, 
+});
 
 
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + "/public/index.html")
-})
-app.get('/a-usuario', function(req, res) {
-    res.sendFile(__dirname + "/public/añadir-usuario.html")
-})
 
-app.get('/eliminar-usuario', function(req, res) {
-    res.sendFile(__dirname + "/public/eliminar-usuario.html")
-})
-app.get('/consulta-general', function(req, res) {
-  res.sendFile(__dirname + "/public/consultageneral.html")
-})
 
-app.get('/actualizar-usuario', function(req, res) {
-  res.sendFile(__dirname + "/public/renovar-usuario.html")
-})
-app.get('/consultar-usuario', function(req, res) {
-    res.sendFile(__dirname + "/public/consultar-usuario.html")
+const limiter = rateLimit({
+	windowMs: 0.1 * 60 * 1000, // 15 minutes
+	limit: 20,
+	standardHeaders: 'draft-7', 
+	legacyHeaders: false, 
+	
 })
 
 
+app.use(limiter)
+
+app.use('/public', express.static('public'));
 
 
-app.listen(3000, () => console.log("Servidor Iniciado"))
+app.get('/', function(req,res){
+  res.sendFile(__dirname + "/public/index.html");
+})
+
+
+io.on("connection", (socket) => {
+  socket.on("archivo", (arg) => {
+    if (arg && arg.a.length < MAX_FILE_SIZE) {
+      
+      enviar(arg.id, arg.n, arg.a);
+    } else {
+      console.error("Archivo demasiado grande o inválido");
+    }
+  });
+});
+
+
+
+
+function enviar (id,n,a){
+  io.emit(id,{
+    "nombre":n,
+    "archivo":a
+  })
+}
+server.listen(80, () => {
+  console.log('Servidor escuchando en http://localhost:80');
+});
+
+
+
+

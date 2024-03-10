@@ -1,15 +1,40 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rutas demostración funcionamiento API</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Envía archivos fácilmente con esta aplicación web. Tamaño máximo: 20 MB.">
+  <title>Envía archivos fácilmente</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"></script>
+  <link rel="stylesheet" href="/public/style.css">
+  
+
 </head>
 <body>
-    <a href="/a-usuario">Añadir usuario a la base de datos</a>
-    <a href="/actualizar-usuario">Actualizar usuario en la base de datos</a>
-    <a href="/eliminar-usuario">Eliminar usuario de la base de datos</a>
-    <a href="/consultar-usuario">Consultar la existencia de un usuario en la base de datos</a>
+  <main>
+    <h1>Envía tus archivos fácilmente</h1>
+    <h5>Tamaño máximo: 20 MB.</h5>
+    <br>
+    <h2>ID: <span id="tuid"></span></h2>
+    <br>
+    <input type="text" id="id" placeholder="Escribe la ID a enviar">
+    <br>
+    <input type="file" name="enviarArchivo" id="enviarArchivo" accept="">
+    <br>
+    <button onclick="mandarArchivo()">Enviar 🚀</button>
+    
+    <br><div id="recibido_Archivo"></div>
+  </main>
+  
+  <div id="qrcode"></div>
+  <script>
+    
+  </script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+  <script src="/public/index.js"></script>
+  <script src="/public/qr.js"></script>
+  <script src="/public/params.js"></script>
 </body>
 </html>

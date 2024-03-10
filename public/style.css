@@ -10,7 +10,7 @@ body {
 }
 
 main {
-  max-width: 600px; 
+  max-width: 600px; /* Ajusta el ancho máximo según tus necesidades */
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
@@ -43,6 +43,7 @@ button {
 }
 
 @media only screen and (max-width: 768px) {
+  /* Estilos específicos para pantallas pequeñas */
   main {
     padding: 10px;
   }
