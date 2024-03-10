@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Eliminación de Usuario</title>
+</head>
+<body>
+
+  <h2>Eliminar Usuario</h2>
+
+  <form action="/usuarios/eliminar-usuario" method="POST">
+    <label for="key">Clave:</label>
+    <input type="text" id="key" name="key" required>
+
+    <br>
+
+    <label for="id">ID del Usuario a Eliminar:</label>
+    <input type="text" id="id" name="id" required>
+
+    <br>
+
+    <input type="submit" value="Eliminar Usuario">
+  </form>
+
+</body>
+</html>

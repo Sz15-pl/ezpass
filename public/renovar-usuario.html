@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Actualización de Usuario</title>
+</head>
+<body>
+
+  <h2>Actualizar Usuario</h2>
+
+  <form action="/usuarios/actualizar-usuario" method="POST">
+    <label for="key">Clave:</label>
+    <input type="text" id="key" name="key" required>
+
+    <br>
+
+    <label for="id">ID del Usuario a Actualizar:</label>
+    <input type="text" id="id" name="id" required>
+
+    <br>
+
+    <label for="NuevaFecha">Nueva Fecha de Subscripción:</label>
+    <input type="text" id="NuevaFecha" name="NuevaFecha" required>
+
+    <br>
+
+    <input type="submit" value="Actualizar Usuario">
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Consulta de Usuario</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+  <h2>Consultar Usuario</h2>
+
+  <form id="consultaUsuarioForm">
+    <label for="key">Clave:</label>
+    <input type="text" id="key" name="key" required>
+    <br>
+    <label for="id">ID del Usuario a Consultar:</label>
+    <input type="text" id="id" name="id" required>
+    <br>
+    <input type="submit" value="Consultar Usuario">
+  </form>
+
+  <div id="resultadoConsulta"></div>
+
+  <script>
+    $(document).ready(function() {
+      $('#consultaUsuarioForm').submit(function(event) {
+        event.preventDefault();
+
+        var formData = {
+          key: $('#key').val(),
+          id: $('#id').val()
+        };
+
+        $.ajax({
+          type: 'POST',
+          url: '/usuarios/consultar-usuario',
+          data: formData,
+          dataType: 'json',
+          success: function(data) {
+            if (data.error) {
+              $('#resultadoConsulta').html('<p>Error: ' + data.error + '</p>');
+            } else {
+              var tablaHTML = '<table border="1"><tr><th>Identificación</th><th>Nombre</th><th>Apellidos</th><th>Foto</th><th>Fecha Subscripción</th></tr>';
+
+              data.exito.forEach(function(usuario) {
+                tablaHTML += '<tr>';
+                tablaHTML += '<td>' + usuario.identificacion + '</td>';
+                tablaHTML += '<td>' + usuario.nombre + '</td>';
+                tablaHTML += '<td>' + usuario.apellidos + '</td>';
+                tablaHTML += '<td><img src="' + usuario.foto + '" alt="Foto de perfil" style="max-width: 100px;"></td>';
+                tablaHTML += '<td>' + usuario.fechaSubscripcion + '</td>';
+                tablaHTML += '</tr>';
+              });
+
+              tablaHTML += '</table>';
+              $('#resultadoConsulta').html(tablaHTML);
+            }
+          },
+          error: function(error) {
+            console.error('Error en la solicitud AJAX:', error);
+            $('#resultadoConsulta').html('<p>Ocurrió un error en la solicitud AJAX.</p>');
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

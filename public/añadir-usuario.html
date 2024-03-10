@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Añadir Usuario</title>
+</head>
+<body>
+
+<h2>Formulario de Añadir Usuario</h2>
+
+<form action="/usuarios/a-usuario" method="post">
+
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" required>
+
+  
+  <label for="apellidos">Apellidos:</label>
+  <input type="text" id="apellidos" name="apellidos" required>
+
+  
+  <label for="id">DNI:</label>
+  <input type="text" id="id" name="id" required>
+
+  
+  <label for="foto">Foto:</label>
+  <input type="file" onchange="encodeImageFileAsURL(this)" />
+  <input type="text" id="foto" name="foto" hidden>
+
+  <!-- Campo para la fecha de validez -->
+  <label for="fechaValidez">Fecha de Validez (dd/mm/aa):</label>
+  <input type="text" id="fechaValidez" name="fechaValidez" required>
+
+
+  <input type="text" name="key" value="TU_CLAVE_SECRETA">
+
+
+  <button type="submit">Añadir Usuario</button>
+</form>
+<script>
+  function encodeImageFileAsURL(element) {
+  var file = element.files[0];
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    document.getElementById('foto').value = reader.result
+  }
+  reader.readAsDataURL(file);
+}
+</script>
+</body>
+</html>

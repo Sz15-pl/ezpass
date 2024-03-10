@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Usuario</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div id="usuarios-lista">
+    <!-- Aquí se mostrarán los datos de los usuarios en una tabla -->
+</div>
+
+<script>
+    // Recuperar los datos del servidor y mostrarlos en la página
+    async function consultarUsuario() {
+        try {
+            const response = await fetch('/usuarios/consulta-general', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    key: 'z3peuV@X-WQ6j@GOsC:'
+                })
+            });
+
+            const data = await response.json();
+
+            if ('exito' in data) {
+                const usuarios = data.exito;
+                mostrarTablaUsuarios(usuarios);
+            } else {
+                console.error('Error en la consulta:', data.error);
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
+    }
+
+    // Función para mostrar los datos de los usuarios en una tabla
+    function mostrarTablaUsuarios(usuarios) {
+        const usuariosLista = document.getElementById('usuarios-lista');
+
+        const tablaHTML = `
+            <h2>Lista de Usuarios</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Identificación</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Foto</th>
+                        <th>Fecha de Subscripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${usuarios.map(usuario => `
+                        <tr>
+                            <td>${usuario.identificacion}</td>
+                            <td>${usuario.nombre}</td>
+                            <td>${usuario.apellidos}</td>
+                            <td><img src="${usuario.foto}" alt="Foto de perfil" style="max-width: 100px; max-height: 100px;"></td>
+                            <td>${usuario.fechaSubscripcion || 'No disponible'}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+
+        usuariosLista.innerHTML = tablaHTML;
+    }
+
+    // Llamar a la función para realizar la consulta al cargar la página
+    consultarUsuario();
+</script>
+
+</body>
+</html>
