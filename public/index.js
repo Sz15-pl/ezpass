@@ -30,7 +30,7 @@ const input = document.getElementById('enviarArchivo')
       id.innerText = ID;
 
       qrcode.clear();
-      qrcode.makeCode(window.location + "/?id=" + ID);
+      qrcode.makeCode(window.location + "?id=" + ID);
 
       socket.on(ID, (mensaje) => {
         console.log(mensaje);
