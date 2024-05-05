@@ -5,7 +5,6 @@ const rateLimit = require('express-rate-limit')
 const MAX_FILE_SIZE =  30 * 1024 * 1024; 
 const app = express();
 const server = http.createServer(app);
-var sqlite3 = require('sqlite3').verbose();
 const io = socketIO(server, {
   maxHttpBufferSize: 1e8, 
 });
