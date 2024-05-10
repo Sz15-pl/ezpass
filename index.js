@@ -42,15 +42,14 @@ io.on("connection", (socket) => {
   });
 });
 
-
-
-
-function enviar (id,n,a){
-  io.emit(id,{
-    "nombre":n,
-    "archivo":a
-  })
-}
+const enviar = ({ id, n, a }) => {
+  if (id && n && a) {
+    io.emit(id, {
+      nombre: n,
+      archivo: a
+    });
+  }
+};
 server.listen(80, () => {
   console.log('Servidor escuchando en http://localhost:80');
 });
