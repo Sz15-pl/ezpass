@@ -31,28 +31,36 @@ app.get('/', function(req,res){
 })
 
 
-io.on("connection", (socket) => {
-  socket.on("archivo", (arg) => {
-    if (arg && arg.a.length < MAX_FILE_SIZE) {
-      enviar(arg);
-    } else {
-      console.error("Archivo demasiado grande o inválido");
-    }
-  });
+io.on('connection', (socket) => {
+  socket.on('archivo', handleArchivo(socket));
 });
 
-const enviar = (datos) => {
-  if (datos && datos.id && datos.n && datos.a) {
-    io.emit(datos.id, {
-      nombre: datos.n,
-      archivo: datos.a
-    });
-  }
+const handleArchivo = (socket) => {
+  return async (data) => {
+    try {
+      if (!data || !data.a || data.a.size >= MAX_FILE_SIZE) {
+        throw new Error('Archivo demasiado grande o inválido');
+      }
+      
+      const { id, n, a } = data;
+      enviar(socket, id, n, a);
+    } catch (error) {
+      console.error(error.message);
+      socket.emit('error', { message: error.message });
+    }
+  };
+};
+
+const enviar = (socket, id, nombre, archivo) => {
+  io.emit(id, {
+    nombre,
+    archivo,
+  });
 };
 
 
-server.listen(80, () => {
-  console.log('Servidor escuchando en http://localhost:80');
+server.listen(3000, () => {
+  console.log('Servidor escuchando en http://localhost:3000');
 });
 
 
