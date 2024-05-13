@@ -20,5 +20,5 @@ Envia el archivo mediante Websockets.
 
 ## Ejemplo
 
-![](https://github.com/s-pl/ezpass/blob/main/g.gif)
+![Prueba el servicio aquí](ezpass.onrender.com/)
 
