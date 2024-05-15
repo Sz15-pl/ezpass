@@ -19,6 +19,6 @@ Envia el archivo mediante Websockets.
  `archivo`  | `string` | **Requerido**. Archivo a transferir convertido a b64 |
 
 ## Ejemplo
-Made with <3 [(ezpass.onrender.com/] by samu.
+Made with <3 [ezpass.onrender.com/] by samu.
 
 
