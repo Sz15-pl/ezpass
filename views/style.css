@@ -1,0 +1,50 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  main {
+    max-width: 600px; /* Ajusta el ancho máximo según tus necesidades */
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  h1, h5, h2 {
+    text-align: center;
+  }
+  
+  input {
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  
+  #recibido_Archivo {
+    margin-top: 10px;
+  }
+  
+  #qrcode {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    /* Estilos específicos para pantallas pequeñas */
+    main {
+      padding: 10px;
+    }
+  }
