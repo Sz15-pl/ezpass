@@ -1,24 +1,22 @@
 
 # EzPass
 
-Aplicacion Web desarrollada en Node.Js con la libreria Socket.io para la transmision de archivos fácilmente. Esta manera de transferir archivos es mucho más eficiente, y a la par mas barata debido al ahorro de recursos por parte del servidor. Ya que este solamente recibe unos datos y luego los envía. Actualmente el límite son 20 Mb por archivo.
+Aplicacion Web desarrollada en Node.Js con la libreria Socket.io para la transmision de archivos fácilmente. Actualmente el límite son 20 Mb por archivo.
 
 
 ## ¿Cómo funciona?
 
-Envia el archivo mediante Websockets.
+Envia archivos entre dispositivos gracias a [Socket.io](https://socket.io/).
 
-```http
-  ws://(tusitio)
-```
 
 | Parametros | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `id` | `string` | **Requerido**. Id del cliente |
 | `nombre`  | `string` | **Requerido**. Nombre del archivo |
  `archivo`  | `string` | **Requerido**. Archivo a transferir convertido a b64 |
+  `token`  | `string` | **Requerido**. Token proporcionado al iniciar sesión |
 
-## Ejemplo
-Made with <3 https://ezpass.onrender.com/ by samu.
+## Pruebalo aquí
+[Render](https://ezpass.onrender.com)
 
 
