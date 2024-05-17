@@ -5,93 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro / Logeo Ezpass</title>
     <style>
-     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
+     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-    main {
-      max-width: 600px;
-      width: 100%;
-      padding: 20px;
-      box-sizing: border-box;
-      text-align: center; 
-    }
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #F8F8F9;
+  flex-direction: column;
+}
 
-    h3 {
-      margin-bottom: 30px;
-      font-size: 1.5rem;
-      color: #333; 
-    }
+h1 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 2rem;
+  color: #000;
+}
 
-    label {
-      display: block; 
-      margin-bottom: 5px;
-      font-weight: bold; 
-    }
+main {
+  max-width: 600px;
+  width: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
 
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px; 
-    }
+h3 {
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  color: #333; 
+}
 
-    button {
-      width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-      border: none;
-      background-color: #4CAF50; 
-      color: white;
-      cursor: pointer;
-      border-radius: 4px; 
-    }
+label {
+  display: block; 
+  margin-bottom: 5px;
+  font-weight: bold; 
+  color: #333;
+}
 
-    form {
-      margin-bottom: 20px; 
-      margin-right: 42px;
-    }
-    </style>
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px; 
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  background-color: #4a90e2; 
+  color: white;
+  cursor: pointer;
+  border-radius: 4px; 
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #357ABD;
+  transform: scale(1.05);
+}
+
+form {
+  margin-bottom: 20px; 
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.card h3 {
+  color: #000000;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+    top: 10px;
+    left: 10px;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  button {
+    font-size: 0.8rem;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    font-size: 0.8rem;
+  }
+}
     </style>
 </head>
 <body>
+    <h1>EzPass</h1>
+    <div class="container">
+        <div class="card">
+            <h3>Registro</h3>
+            <form id="registerForm">
+                <label for="usuario">Usuario</label>
+                <input type="text" id="usuario" name="usuario" required>
+                
+                <label for="contraseña">Contraseña</label>
+                <input type="password" id="contraseña" name="contraseña" required>
+                
+                <button type="submit">Register</button>
+            </form>
+        </div>
 
-    
-   
- 
-    <form id="registerForm">
- 
-        
-        <label for="usuario">Registro</label>
-        <input type="text" id="usuario" name="usuario" required><br><br>
-        
-        <label for="contraseña">Password:</label>
-        <input type="password" id="contraseña" name="contraseña" required><br><br>
-        
-        
-        <button type="submit">Register</button>
-    </form>
-
- 
-    <br>
-    <form id="loginForm">
-        <label for="loginUsuario">Log-in</label>
-        <input type="text" id="loginUsuario" name="usuario" required><br><br>
-        
-        <label for="loginContraseña">Password:</label>
-        <input type="password" id="loginContraseña" name="contraseña" required><br><br>
-        
-        <button type="submit">Login</button>
-    </form>
+        <div class="card">
+            <h3>Log-in</h3>
+            <form id="loginForm">
+                <label for="loginUsuario">Usuario</label>
+                <input type="text" id="loginUsuario" name="usuario" required>
+                
+                <label for="loginContraseña">Contraseña</label>
+                <input type="password" id="loginContraseña" name="contraseña" required>
+                
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
       document.getElementById('registerForm').addEventListener('submit', function(event) {
@@ -110,13 +201,16 @@
     })
     .then(response => response.json())
     .then(data => {
-        if(data.message == "Nuevo usuario agregado a la base de datos"){
+        if(data.message === "Nuevo usuario agregado a la base de datos") {
             alert("Registrado correctamente");
         } else {
-            alert(data.error)
+            alert(data.error || "Ocurrió un error al registrar el usuario.");
         }
     })
-    .catch(error => alert('Error:', data.message.error));
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ocurrió un error al procesar su solicitud. Por favor, intente nuevamente.');
+    });
 });
 
 // Iniciar sesión
@@ -135,18 +229,32 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         body: JSON.stringify(formData)
     })
     .then(response => response.json())
-    .then(data => {  
-        var url = `${window.location}authenticated`;
-        var form = $('<form action="' + url + '" method="post">' +
-  '<input type="text" name="token" value="' + data.token + '" />' +
-  '</form>');
-  
-$('body').append(form);
-form.submit();
-    })
+    .then(data => {
+        if (data.token) {
+            const url = `${window.location.origin}/authenticated`;
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = url;
 
-    .catch(error => alert(data.error));
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'token';
+            input.value = data.token;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+            alert(data.error || "Ocurrió un error al iniciar sesión.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ocurrió un error al procesar su solicitud. Por favor, intente nuevamente.');
+    });
 });
     </script>
 </body>
 </html>
+
+
